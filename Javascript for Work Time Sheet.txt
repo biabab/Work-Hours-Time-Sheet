@@ -1,0 +1,68 @@
+// Get the time difference in minutes between two times.                                         
+function timeDifference([startTime, endTime]) {
+  startTime = startTime.split(":");
+  endTime = endTime.split(":");
+  // remove the colons
+  
+  if (startTime[0] == 12)
+    startTime[0] = 0;
+  if (endTime[0] == 12)
+    endTime[0] = 0;  
+  if (startTime[1].includes("pm"))
+    startTime[0] = parseInt(startTime[0]) + 12;
+  if (endTime[1].includes("pm"))
+    endTime[0] = parseInt(endTime[0]) + 12;
+  // convert times to a 24 hour format to be passed to the Date consctructor
+  
+  var startDate = new Date(0, 0, 0, parseInt(startTime[0]), parseInt(startTime[1]), 0);
+  var endDate = new Date(0, 0, 0, parseInt(endTime[0]), parseInt(endTime[1]), 0);
+  var difference = endDate.getTime() - startDate.getTime();
+  // gives the time elapsed in miliseconds
+  
+  var minutes = Math.floor(difference / 60000);
+  // gives elapsed time in minutes
+  
+  return minutes;
+}
+
+
+// Collect user inputs and avoid undefined values.                                               
+const times1 = [this.getField("Time1_af_date.0").value, this.getField("Time2_af_date.0").value];
+const times2 = [this.getField("Time3_af_date").value, this.getField("Time4_af_date").value];
+const times3 = [this.getField("Time5_af_date").value, this.getField("Time6_af_date").value];
+const times4 = [this.getField("Time7_af_date").value, this.getField("Time8_af_date").value];
+const times5 = [this.getField("Time9_af_date").value, this.getField("Time10_af_date").value];
+const times6 = [this.getField("Time11_af_date").value, this.getField("Time12_af_date").value];
+const times7 = [this.getField("Time13_af_date").value, this.getField("Time14_af_date").value];
+const times8 = [this.getField("Time15_af_date").value, this.getField("Time16_af_date").value];
+const timeTable = [times1, times2, times3, times4, times5, times6, times7, times8]
+
+const definedTimeTable = [];
+for (let x in timeTable) {
+  if (timeTable[x].length == 2 && timeTable[x].includes(undefined) == false)
+    definedTimeTable.push(timeTable[x]);
+}
+// filter out undefined values where the user has not input a time
+
+const timeTableMinutes = definedTimeTable.map(timeDifference);
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+var totalTimeMinutes = timeTableMinutes.reduce(reducer);
+// the sum of all of the time spent on multiple days in minutes
+
+
+
+// Displaying the total time worked in hours and minutes.                                        
+var hours = Math.floor(totalTimeMinutes / 60);
+totalTimeMinutes -= hours * 60;
+var minutes = totalTimeMinutes;
+var hourstick = hours + (hours == 1 ? " hour" : " hours");
+
+if (minutes == 0)
+  var minutestick = "";
+else if (minutes == 1)
+  minutestick = " and " + minutes + " minute";
+else
+  minutestick = " and " + minutes + " minutes";
+// formatting for how the total time is displayed
+
+this.getField("Totaltime").value = hourstick + minutestick;
