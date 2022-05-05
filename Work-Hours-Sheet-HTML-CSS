@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style>
+      body {
+        font-family: arial;
+        text-align: center;
+      }
+
+      h1 {
+        color: #1f004d;
+      }
+
+      h5 {
+        color: #8533ff;
+      }
+
+      table,
+      th,
+      tr,
+      td {
+        border: 2px solid;
+        border-collapse: collapse;
+        font-family: arial;
+        padding: 8px;
+        table-layout: fixed;
+        text-align: center;
+        width: 100%;
+      }
+
+      .button {
+        border: none;
+        color: black;
+        cursor: pointer;
+        display: inline;
+        font-family: arial;
+        font-size: 14px;
+        padding: 5px 10px;
+        text-align: center;
+        transition-duration: 0.3s;
+      }
+
+      .button:focus {
+        background-color: #ccccff;
+      }
+
+      .button:hover {
+        background-color: #0d0d0d;
+        color: white;
+      }
+
+      .inputfield {
+        font-family: arial;
+        font-size: 10px;
+        text-align: center;
+      }
+
+    </style>
+    <title>Simple Time Sheet Table</title>
+  </head>
+
+  <body>
+    <h1>Work Hours Time Sheet</h1>
+    <h5>Enter the dates and times you have worked into the table below to calculate the total number of hours worked.</h5>
+    <table id="userinputtable">
+      <tr>
+        <th>Date</th>
+        <th>Time In</th>
+        <th>Time Out</th>
+      </tr>
+      <tr>
+        <td><input class="inputfield" type="date"></td>
+        <td><input class="inputfield" name="starttime" type="time"></td>
+        <td><input class="inputfield" name="endtime" type="time"></td>
+      </tr>
+      <!--This row is used as a reference to be copied for the function perfromed upon clicking the "+Add another day of work" button.-->
+      <tr id="removableuserinputrow" style="visibility:collapse">
+        <td><input title="Remove this day of work" class="button" name="closebutton" type="submit" value="&times;" style="display:inline; position:relative" onclick="removeRow(this)">
+          <input class="inputfield" type="date"></td>
+        <td><input class="inputfield" name="starttime" type="time"></td>
+        <td><input class="inputfield" name="endtime" type="time"></td>
+      </tr>
+    </table>
+    <br>
+    <table id="addclearcalculatetable>">
+      <tr>
+        <td colspan="3"><input class="button" onclick="addRow();" type="submit" value="+ Add another day of work">
+          &ensp;
+          <input class="button" type="submit" onclick="clearInputs();" value="- Clear all table inputs"></td>
+      </tr>
+      <tr>
+        <td><input class="button" type="submit" onclick="totalTime();" value="Calculate Total"></td>
+        <td colspan="2"><input id="totaltime" readonly type="text"></td>
+      </tr>
+    </table>
+    <br>
+
+  </body>
+
+</html>
