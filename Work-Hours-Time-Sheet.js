@@ -34,18 +34,13 @@ function totalTime() {
   }
 
   //display and format the total time worked in hours   
-  console.log(totalTimeMinutes);
   var hours = Math.floor(totalTimeMinutes / 60);
-  console.log(hours);
   var hoursTick = hours + (hours == 1 ? " hour" : " hours");
-  console.log(hoursTick);
 
   //display and format the total time worked in minutes
   totalTimeMinutes -= hours * 60;
   var minutes = totalTimeMinutes;
-  console.log(minutes);
   var minutesTick = "";
-  console.log(minutesTick);
   if (minutes == 1) {
     minutesTick = " and " + minutes + " minute";
   } else {
